@@ -1,0 +1,45 @@
+{
+  "name": "sncf-api-wrapper",
+  "version": "0.0.1",
+  "description": "Wrapper for the SNCF API",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "scripts": {
+    "build": "tsup src/index.ts",
+    "start": "npm run build -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pierrad/sncf-api-wrapper.git"
+  },
+  "keywords": [
+    "sncf",
+    "api",
+    "wrapper",
+    "typescript"
+  ],
+  "author": "Vasseur Pierre-Adrien",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pierrad/sncf-api-wrapper/issues"
+  },
+  "homepage": "https://github.com/Pierrad/sncf-api-wrapper#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    "default": "./dist/index.cjs",
+    "require": "./dist/index.cjs",
+    "import": "./dist/index.js",
+    "node": "./dist/index.cjs"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/node-fetch": "^2.6.4",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.11"
+  }
+}
