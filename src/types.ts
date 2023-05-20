@@ -1,11 +1,221 @@
+export type FullPlace = {
+  feed_publishers: FeedPublisher[];
+  disruptions:     any[];
+  places:          Place[];
+  context:         Context;
+  links:           Link[];
+}
 
-export type Places = {
+export type Place = {
+  id:                     string;
+  name:                   string;
+  quality:                number;
+  administrative_region?: AdministrativeRegion;
+  embedded_type:          'stop_area' | 'address' | 'administrative_region' | 'poi' | 'stop_point';
+  stop_area?:             StopArea;
+}
+
+export type StopArea = {
+  id:                     string;
+  name:                   string;
+  codes:                  Code[];
+  timezone:               string;
+  label:                  string;
+  coord:                  Coord;
+  links:                  any[];
+  administrative_regions: AdministrativeRegion[];
+}
+
+export type SimplifiedJourney = {
+  departureTime: string
+  arrivalTime: string
+  duration: string
+  nbTransfers: number
+  sections: {
+    departureTime: string
+    arrivalTime: string
+    duration: string
+    from: string
+    to: string
+    displayInformations: {
+      network: string
+      headsign: string
+    }
+    disruptions: SimplifiedDisruption[]
+  }[]
+}
+
+export type SimplifiedDisruption = {
   id: string
-  name: string
-  quality: number
-  stop_area?: Stop
-  administrative_region: AdministrativeRegion
-  embedded_type: 'stop_area' | 'administrative_region'
+  severity: Severity
+  messages: string[]
+  amendedDepartureTime: string
+  amendedArrivalTime: string
+}
+
+export type FullJourney = {
+  feed_publishers: FeedPublisher[];
+  links:           Link[];
+  journeys:        Journey[];
+  tickets:         any[];
+  disruptions:     Disruption[];
+  terminus:        Terminus[];
+  context:         Context;
+  notes:           any[];
+  exceptions:      any[];
+}
+
+export type Context = {
+  car_direct_path:  CarDirectPath;
+  current_datetime: string;
+  timezone:         string;
+}
+
+export type CarDirectPath = {
+  co2_emission:   Co2Emission;
+  air_pollutants: AirPollutants;
+}
+
+export type AirPollutants = {
+  unit:   string;
+  values: Values;
+}
+
+export type Values = {
+  nox: number;
+  pm:  number;
+}
+
+export type Co2Emission = {
+  value: number;
+  unit:  string;
+}
+
+export type Disruption = {
+  id:                  string;
+  disruption_id:       string;
+  impact_id:           string;
+  application_periods: ApplicationPeriod[];
+  status:              string;
+  updated_at:          string;
+  cause:               string;
+  severity:            Severity;
+  messages:            Message[];
+  impacted_objects:    ImpactedObject[];
+  uri:                 string;
+  disruption_uri:      string;
+  contributor:         string;
+}
+
+export type ApplicationPeriod = {
+  begin: string;
+  end:   string;
+}
+
+export type ImpactedObject = {
+  pt_object:      PtObject;
+  impacted_stops: ImpactedStop[];
+}
+
+export type ImpactedStop = {
+  stop_point:             StopPoint;
+  base_arrival_time:      string;
+  base_departure_time:    string;
+  amended_arrival_time:   string;
+  amended_departure_time: string;
+  cause:                  string;
+  stop_time_effect:       string;
+  departure_status:       string;
+  arrival_status:         string;
+  is_detour:              boolean;
+}
+
+export type StopPoint = {
+  id:                      string;
+  name:                    string;
+  label:                   string;
+  coord:                   Coord;
+  links:                   any[];
+  equipments:              any[];
+  administrative_regions?: AdministrativeRegion[];
+  stop_area?:              Terminus;
+}
+
+export type AdministrativeRegion = {
+  id:       string;
+  name:     string;
+  level:    number;
+  zip_code: string;
+  label:    string;
+  insee:    string;
+  coord:    Coord;
+}
+
+export type Coord = {
+  lon: string;
+  lat: string;
+}
+
+export type Terminus = {
+  id:                      string;
+  name:                    string;
+  codes?:                  Code[];
+  timezone?:               string;
+  label:                   string;
+  coord:                   Coord;
+  links:                   any[];
+  administrative_regions?: AdministrativeRegion[];
+  stop_area?:              Terminus;
+  equipments?:             any[];
+}
+
+export type Code = {
+  type:  Type;
+  value: string;
+}
+
+export enum Type {
+  Source = "source",
+  Uic = "uic",
+}
+
+export type PtObject = {
+  id:            string;
+  name:          string;
+  quality:       number;
+  trip:          Trip;
+  embedded_type: string;
+}
+
+export type Trip = {
+  id:   string;
+  name: string;
+}
+
+export type Message = {
+  text:    string;
+  channel: Channel;
+}
+
+export type Channel = {
+  content_type: string;
+  id:           string;
+  name:         string;
+  types:        string[];
+}
+
+export type Severity = {
+  name:     string;
+  effect:   string;
+  color:    string;
+  priority: number;
+}
+
+export type FeedPublisher = {
+  id:      string;
+  name:    string;
+  url:     string;
+  license: string;
 }
 
 export type Journey = {
@@ -22,44 +232,8 @@ export type Journey = {
   durations:           Distances;
   distances:           Distances;
   fare:                Fare;
-  calendars:           Calendar[];
   sections:            Section[];
-  links:               JourneyLink[];
-}
-
-export type AirPollutants = {
-  unit:   string;
-  values: Values;
-}
-
-export type Values = {
-  nox: number;
-  pm:  number;
-}
-
-export type Calendar = {
-  week_pattern:   WeekPattern;
-  active_periods: ActivePeriod[];
-}
-
-export type ActivePeriod = {
-  begin: string;
-  end:   string;
-}
-
-export type WeekPattern = {
-  monday:    boolean;
-  tuesday:   boolean;
-  wednesday: boolean;
-  thursday:  boolean;
-  friday:    boolean;
-  saturday:  boolean;
-  sunday:    boolean;
-}
-
-export type Co2Emission = {
-  value: number;
-  unit:  string;
+  links:               Link[];
 }
 
 export type Distances = {
@@ -79,13 +253,6 @@ export type Fare = {
 
 export type Total = {
   value: string;
-}
-
-export type JourneyLink = {
-  href:      string;
-  templated: boolean;
-  rel:       string;
-  type:      string;
 }
 
 export type Section = {
@@ -127,7 +294,7 @@ export type DisplayInformations = {
 
 export type DisplayInformationsLink = {
   templated: boolean;
-  rel:       string;
+  rel:       'disruptions' | 'terminus';
   internal:  boolean;
   type:      string;
   id:        string;
@@ -137,47 +304,9 @@ export type From = {
   id:            string;
   name:          string;
   quality:       number;
-  stop_area?:    Stop;
+  stop_area?:    Terminus;
   embedded_type: string;
-  stop_point?:   Stop;
-}
-
-export type Stop = {
-  id:                      string;
-  name:                    string;
-  codes?:                  Code[];
-  timezone?:               string;
-  label:                   string;
-  coord:                   Coord;
-  links:                   any[];
-  administrative_regions?: AdministrativeRegion[];
-  stop_area?:              Stop;
-  equipments?:             any[];
-}
-
-export type AdministrativeRegion = {
-  id:       string;
-  name:     string;
-  level:    number;
-  zip_code: string;
-  label:    string;
-  insee:    string;
-  coord:    Coord;
-}
-
-export type Coord = {
-  lon: string;
-  lat: string;
-}
-
-export type Code = {
-  type:  Type;
-  value: string;
-}
-
-export enum Type {
-  Source = "source",
-  Uic = "uic",
+  stop_point?:   StopPoint;
 }
 
 export type Geojson = {
@@ -200,7 +329,14 @@ export type StopDateTime = {
   base_departure_date_time: string;
   arrival_date_time:        string;
   base_arrival_date_time:   string;
-  stop_point:               Stop;
+  stop_point:               StopPoint;
   additional_informations:  any[];
   links:                    any[];
+}
+
+export type Link = {
+  href:      string;
+  templated: boolean;
+  rel:       string;
+  type:      string;
 }
