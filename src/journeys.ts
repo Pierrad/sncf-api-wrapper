@@ -1,11 +1,12 @@
 import fetch from "node-fetch";
 import { FullJourney, Journey, SimplifiedDisruption, SimplifiedJourney } from "./types";
-import { isoDateTimeToReadableDate, secondsToHMS } from "./datetime";
+import { isoDateTimeToDate, secondsToHMS } from "./utils/datetime";
+import { formatParams } from "./utils/url";
 
-type JourneysParams = {
+export type JourneysParams = {
   from: string
   to: string
-  datetime?: string // YYYYMMDDThhmmss
+  datetime?: string
   datetime_represents?: 'departure' | 'arrival'
   traveler_type?: 'standard' | 'slow_walker' | 'fast_walker' | 'wheelchair' | 'luggage'
   data_freshness?: 'base_schedule' | 'realtime'
@@ -35,9 +36,8 @@ type JourneysParams = {
   timeframe_duration?: number
 }
 
-export async function journeys(api_key: string, params: JourneysParams, simplified: boolean = false): Promise<Journey[] | SimplifiedJourney[]> {
-  // TODO: Handle missing parameters
-  const url = `https://api.sncf.com/v1/coverage/sncf/journeys?from=${params.from}&to=${params.to}&data_freshness=${params.data_freshness || 'base_schedule'}&count=${params.count || 1}`
+async function makeRequest(api_key: string, params: JourneysParams): Promise<FullJourney> {
+  const url = `https://api.sncf.com/v1/coverage/sncf/journeys?${formatParams(params)}`
   try {
     const res = await fetch(url, {
       headers: {
@@ -45,13 +45,18 @@ export async function journeys(api_key: string, params: JourneysParams, simplifi
       }
     })
     const json: FullJourney = await res.json()
-    if (simplified) return simplifyJourneys(json)
-    return json.journeys
-  }
-  catch (err) {
-    console.error(err)
+    return json
+  } catch (err) {
     throw new Error("Error while fetching journeys")
   }
+}
+
+export async function journeys(api_key: string, params: JourneysParams): Promise<Journey[]> {
+  return (await makeRequest(api_key, params)).journeys
+}
+
+export async function simplifiedJourneys(api_key: string, params: JourneysParams): Promise<SimplifiedJourney[]> {
+  return simplifyJourneys(await makeRequest(api_key, params))
 }
 
 function simplifyJourneys(fullJourney: FullJourney): SimplifiedJourney[] {
@@ -59,23 +64,26 @@ function simplifyJourneys(fullJourney: FullJourney): SimplifiedJourney[] {
     const sections = journey.sections.map((section, index) => {
       if (index === 0) return null
       if (index === journey.sections.length - 1) return null
+      if (section.type === 'waiting') return null
       return {
-        departureTime: isoDateTimeToReadableDate(section.departure_date_time),
-        arrivalTime: isoDateTimeToReadableDate(section.arrival_date_time),
+        ...(section.base_departure_date_time && { baseDepartureTime: isoDateTimeToDate(section.base_departure_date_time) }),
+        ...(section.base_arrival_date_time && { baseArrivalTime: isoDateTimeToDate(section.base_arrival_date_time) }),
+        departureTime: isoDateTimeToDate(section.departure_date_time),
+        arrivalTime: isoDateTimeToDate(section.arrival_date_time),
         duration: secondsToHMS(section.duration),
-        from: section.from.name,
-        to: section.to.name,
+        from: section.from?.name,
+        to: section.to?.name,
         displayInformations: {
           network: section?.display_informations?.network,
           headsign: section?.display_informations?.headsign,
         },
-        disruptions: disruptions(formatDisruptions(section.display_informations), fullJourney.disruptions, section.from.id, section.to.id),
+        disruptions: disruptions(formatDisruptions(section.display_informations), fullJourney.disruptions),
       }
     }).filter((section) => section !== null).map((section) => section as SimplifiedJourney['sections'][0])
 
     return {
-      departureTime: isoDateTimeToReadableDate(journey.departure_date_time),
-      arrivalTime: isoDateTimeToReadableDate(journey.arrival_date_time),
+      departureTime: isoDateTimeToDate(journey.departure_date_time),
+      arrivalTime: isoDateTimeToDate(journey.arrival_date_time),
       duration: secondsToHMS(journey.duration),
       nbTransfers: journey.nb_transfers,
       status: journey.status,
@@ -84,7 +92,7 @@ function simplifyJourneys(fullJourney: FullJourney): SimplifiedJourney[] {
   })
 }
 
-function disruptions(disruptionIds: string[] | null, disruptions: FullJourney['disruptions'], from: string, to: string): SimplifiedDisruption[] | null {
+function disruptions(disruptionIds: string[] | null, disruptions: FullJourney['disruptions']): SimplifiedDisruption[] | null {
   if (!disruptionIds) return null
   const formatedDisruptions =  disruptionIds.map((disruptionId) => {
     const disruption = disruptions.find((disruption) => disruption.id === disruptionId)
@@ -93,8 +101,6 @@ function disruptions(disruptionIds: string[] | null, disruptions: FullJourney['d
       id: disruption.id,
       severity: disruption.severity,
       messages: disruption.messages.map((message) => message.text),
-      amendedDepartureTime: getAmendedDepartureTime(disruption, from),
-      amendedArrivalTime: getAmendedArrivalTime(disruption, to),
     }
   }).filter((disruption) => disruption !== null).map((disruption) => disruption as SimplifiedDisruption)
   if (formatedDisruptions.length === 0) return null
@@ -105,22 +111,4 @@ function formatDisruptions(display_informations: Journey['sections'][0]['display
   if (!display_informations) return null
   if (!display_informations.links) return null
   return display_informations.links.filter((link) => link.rel === 'disruptions').map((link) => link.id)
-}
-
-function getAmendedDepartureTime(disruption: FullJourney['disruptions'][0], from: string): string | null {
-  if (!disruption.impacted_objects) return null
-  const impactedObject = disruption.impacted_objects.find((impactedObject) => impactedObject.impacted_stops.find((impactedStop) => impactedStop.stop_point.id === from))
-  if (!impactedObject) return null
-  const impactedStop = impactedObject.impacted_stops.find((impactedStop) => impactedStop.stop_point.id === from)
-  if (!impactedStop) return null
-  return impactedStop.amended_departure_time
-} 
-
-function getAmendedArrivalTime(disruption: FullJourney['disruptions'][0], to: string): string | null {
-  if (!disruption.impacted_objects) return null
-  const impactedObject = disruption.impacted_objects.find((impactedObject) => impactedObject.impacted_stops.find((impactedStop) => impactedStop.stop_point.id === to))
-  if (!impactedObject) return null
-  const impactedStop = impactedObject.impacted_stops.find((impactedStop) => impactedStop.stop_point.id === to)
-  if (!impactedStop) return null
-  return impactedStop.amended_arrival_time
 }

@@ -1,2 +1,2 @@
-export { journeys } from "./journeys"
+export { journeys, simplifiedJourneys } from "./journeys"
 export { places } from "./places"

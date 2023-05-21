@@ -1,3 +1,34 @@
+export type SimplifiedJourney = {
+  departureTime: Date
+  arrivalTime: Date
+  duration: string
+  nbTransfers: number
+  sections: {
+    baseDepartureTime?: Date
+    baseArrivalTime?: Date
+    departureTime: Date
+    arrivalTime: Date
+    duration: string
+    from: string
+    to: string
+    displayInformations: {
+      network: string
+      headsign: string
+    }
+    disruptions: SimplifiedDisruption[]
+  }[]
+}
+
+export type SimplifiedDisruption = {
+  id: string
+  severity: Severity
+  messages: string[]
+}
+
+//
+// SNCF API types 
+//
+
 export type FullPlace = {
   feed_publishers: FeedPublisher[];
   disruptions:     any[];
@@ -24,33 +55,6 @@ export type StopArea = {
   coord:                  Coord;
   links:                  any[];
   administrative_regions: AdministrativeRegion[];
-}
-
-export type SimplifiedJourney = {
-  departureTime: string
-  arrivalTime: string
-  duration: string
-  nbTransfers: number
-  sections: {
-    departureTime: string
-    arrivalTime: string
-    duration: string
-    from: string
-    to: string
-    displayInformations: {
-      network: string
-      headsign: string
-    }
-    disruptions: SimplifiedDisruption[]
-  }[]
-}
-
-export type SimplifiedDisruption = {
-  id: string
-  severity: Severity
-  messages: string[]
-  amendedDepartureTime: string
-  amendedArrivalTime: string
 }
 
 export type FullJourney = {

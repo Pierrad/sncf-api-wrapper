@@ -1,5 +1,6 @@
 import fetch from "node-fetch"
 import { FullPlace, Place } from "./types"
+import { formatParams } from "./utils/url"
 
 export type PlacesParams = {
   q: string
@@ -10,15 +11,7 @@ export type PlacesParams = {
 }
 
 export async function places(api_key: string, params: PlacesParams): Promise<Place[]> {
-  if (!api_key) {
-    throw new Error("Missing required parameter 'api_key'")
-  }
-  
-  if (!params || !params.q) {
-    throw new Error("Missing required parameter 'query'")
-  }
-
-  const url = `https://api.sncf.com/v1/coverage/sncf/places?q=${params.q}`
+  const url = `https://api.sncf.com/v1/coverage/sncf/places?${formatParams(params)}`
   try {
     const res = await fetch(url, {
       headers: {
@@ -28,8 +21,6 @@ export async function places(api_key: string, params: PlacesParams): Promise<Pla
     const json: FullPlace = await res.json()
     return json.places
   } catch (err) {
-    console.error(err)
     throw new Error("Error while fetching places")
   }
 }
-

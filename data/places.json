@@ -1,0 +1,465 @@
+{
+	"feed_publishers": [
+		{
+			"id": "sncf",
+			"name": "SNCF PIV Production",
+			"url": "",
+			"license": "Private (unspecified)"
+		},
+		{
+			"id": "SNCF:sncf-piv",
+			"name": "SNCF PIV Production",
+			"url": "",
+			"license": "Private (unspecified)"
+		}
+	],
+	"disruptions": [],
+	"places": [
+		{
+			"id": "stop_area:SNCF:87686006",
+			"name": "Paris - Gare de Lyon - Hall 1 & 2 (Paris)",
+			"quality": 40,
+			"stop_area": {
+				"id": "stop_area:SNCF:87686006",
+				"name": "Paris - Gare de Lyon - Hall 1 & 2",
+				"codes": [
+					{
+						"type": "secondary_id",
+						"value": "SNCF:87686030"
+					},
+					{
+						"type": "secondary_id",
+						"value": "SNCF:87758581"
+					},
+					{
+						"type": "source",
+						"value": "87686006"
+					},
+					{
+						"type": "source",
+						"value": "87686030"
+					},
+					{
+						"type": "source",
+						"value": "87758581"
+					},
+					{
+						"type": "uic",
+						"value": "87686006"
+					},
+					{
+						"type": "uic",
+						"value": "87686030"
+					},
+					{
+						"type": "uic",
+						"value": "87758581"
+					}
+				],
+				"timezone": "Europe\/Paris",
+				"label": "Paris - Gare de Lyon - Hall 1 & 2 (Paris)",
+				"coord": {
+					"lon": "2.373481",
+					"lat": "48.844945"
+				},
+				"links": [],
+				"administrative_regions": [
+					{
+						"id": "admin:fr:75056",
+						"name": "Paris",
+						"level": 8,
+						"zip_code": "75000;75116",
+						"label": "Paris (75000-75116)",
+						"insee": "75056",
+						"coord": {
+							"lon": "2.3483915",
+							"lat": "48.8534951"
+						}
+					}
+				]
+			},
+			"embedded_type": "stop_area"
+		},
+		{
+			"id": "stop_area:SNCF:87722025",
+			"name": "Lyon Perrache (Lyon)",
+			"quality": 90,
+			"stop_area": {
+				"id": "stop_area:SNCF:87722025",
+				"name": "Lyon Perrache",
+				"codes": [
+					{
+						"type": "source",
+						"value": "87722025"
+					},
+					{
+						"type": "uic",
+						"value": "87722025"
+					}
+				],
+				"timezone": "Europe\/Paris",
+				"label": "Lyon Perrache (Lyon)",
+				"coord": {
+					"lon": "4.825777",
+					"lat": "45.748508"
+				},
+				"links": [],
+				"administrative_regions": [
+					{
+						"id": "admin:fr:69123",
+						"name": "Lyon",
+						"level": 8,
+						"zip_code": "",
+						"label": "Lyon",
+						"insee": "69123",
+						"coord": {
+							"lon": "4.8320114",
+							"lat": "45.7578137"
+						}
+					}
+				]
+			},
+			"embedded_type": "stop_area"
+		},
+		{
+			"id": "stop_area:SNCF:87721001",
+			"name": "Lyon Vaise (Lyon)",
+			"quality": 90,
+			"stop_area": {
+				"id": "stop_area:SNCF:87721001",
+				"name": "Lyon Vaise",
+				"codes": [
+					{
+						"type": "source",
+						"value": "87721001"
+					},
+					{
+						"type": "uic",
+						"value": "87721001"
+					}
+				],
+				"timezone": "Europe\/Paris",
+				"label": "Lyon Vaise (Lyon)",
+				"coord": {
+					"lon": "4.804186",
+					"lat": "45.77976"
+				},
+				"links": [],
+				"administrative_regions": [
+					{
+						"id": "admin:fr:69123",
+						"name": "Lyon",
+						"level": 8,
+						"zip_code": "",
+						"label": "Lyon",
+						"insee": "69123",
+						"coord": {
+							"lon": "4.8320114",
+							"lat": "45.7578137"
+						}
+					}
+				]
+			},
+			"embedded_type": "stop_area"
+		},
+		{
+			"id": "stop_area:SNCF:87282624",
+			"name": "Lyon - Jean Macé (Lyon)",
+			"quality": 80,
+			"stop_area": {
+				"id": "stop_area:SNCF:87282624",
+				"name": "Lyon - Jean Macé",
+				"codes": [
+					{
+						"type": "source",
+						"value": "87282624"
+					},
+					{
+						"type": "uic",
+						"value": "87282624"
+					}
+				],
+				"timezone": "Europe\/Paris",
+				"label": "Lyon - Jean Macé (Lyon)",
+				"coord": {
+					"lon": "4.841499",
+					"lat": "45.74503"
+				},
+				"links": [],
+				"administrative_regions": [
+					{
+						"id": "admin:fr:69123",
+						"name": "Lyon",
+						"level": 8,
+						"zip_code": "",
+						"label": "Lyon",
+						"insee": "69123",
+						"coord": {
+							"lon": "4.8320114",
+							"lat": "45.7578137"
+						}
+					}
+				]
+			},
+			"embedded_type": "stop_area"
+		},
+		{
+			"id": "stop_area:SNCF:87721175",
+			"name": "Lyon Gorge de Loup (Lyon)",
+			"quality": 80,
+			"stop_area": {
+				"id": "stop_area:SNCF:87721175",
+				"name": "Lyon Gorge de Loup",
+				"codes": [
+					{
+						"type": "source",
+						"value": "87721175"
+					},
+					{
+						"type": "uic",
+						"value": "87721175"
+					}
+				],
+				"timezone": "Europe\/Paris",
+				"label": "Lyon Gorge de Loup (Lyon)",
+				"coord": {
+					"lon": "4.804697",
+					"lat": "45.766095"
+				},
+				"links": [],
+				"administrative_regions": [
+					{
+						"id": "admin:fr:69123",
+						"name": "Lyon",
+						"level": 8,
+						"zip_code": "",
+						"label": "Lyon",
+						"insee": "69123",
+						"coord": {
+							"lon": "4.8320114",
+							"lat": "45.7578137"
+						}
+					}
+				]
+			},
+			"embedded_type": "stop_area"
+		},
+		{
+			"id": "stop_area:SNCF:87723197",
+			"name": "Lyon Part Dieu (Lyon)",
+			"quality": 80,
+			"stop_area": {
+				"id": "stop_area:SNCF:87723197",
+				"name": "Lyon Part Dieu",
+				"codes": [
+					{
+						"type": "source",
+						"value": "87723197"
+					},
+					{
+						"type": "uic",
+						"value": "87723197"
+					}
+				],
+				"timezone": "Europe\/Paris",
+				"label": "Lyon Part Dieu (Lyon)",
+				"coord": {
+					"lon": "4.859409",
+					"lat": "45.760596"
+				},
+				"links": [],
+				"administrative_regions": [
+					{
+						"id": "admin:fr:69123",
+						"name": "Lyon",
+						"level": 8,
+						"zip_code": "",
+						"label": "Lyon",
+						"insee": "69123",
+						"coord": {
+							"lon": "4.8320114",
+							"lat": "45.7578137"
+						}
+					}
+				]
+			},
+			"embedded_type": "stop_area"
+		},
+		{
+			"id": "stop_area:SNCF:87721159",
+			"name": "Lyon - Saint-Paul (Lyon)",
+			"quality": 70,
+			"stop_area": {
+				"id": "stop_area:SNCF:87721159",
+				"name": "Lyon - Saint-Paul",
+				"codes": [
+					{
+						"type": "source",
+						"value": "87721159"
+					},
+					{
+						"type": "uic",
+						"value": "87721159"
+					}
+				],
+				"timezone": "Europe\/Paris",
+				"label": "Lyon - Saint-Paul (Lyon)",
+				"coord": {
+					"lon": "4.826954",
+					"lat": "45.766077"
+				},
+				"links": [],
+				"administrative_regions": [
+					{
+						"id": "admin:fr:69123",
+						"name": "Lyon",
+						"level": 8,
+						"zip_code": "",
+						"label": "Lyon",
+						"insee": "69123",
+						"coord": {
+							"lon": "4.8320114",
+							"lat": "45.7578137"
+						}
+					}
+				]
+			},
+			"embedded_type": "stop_area"
+		},
+		{
+			"id": "stop_area:SNCF:87697136",
+			"name": "Lyon-Perrache - Gare Routière (Lyon)",
+			"quality": 60,
+			"stop_area": {
+				"id": "stop_area:SNCF:87697136",
+				"name": "Lyon-Perrache - Gare Routière",
+				"codes": [
+					{
+						"type": "source",
+						"value": "87697136"
+					},
+					{
+						"type": "uic",
+						"value": "87697136"
+					}
+				],
+				"timezone": "Europe\/Paris",
+				"label": "Lyon-Perrache - Gare Routière (Lyon)",
+				"coord": {
+					"lon": "4.827332",
+					"lat": "45.74912"
+				},
+				"links": [],
+				"administrative_regions": [
+					{
+						"id": "admin:fr:69123",
+						"name": "Lyon",
+						"level": 8,
+						"zip_code": "",
+						"label": "Lyon",
+						"insee": "69123",
+						"coord": {
+							"lon": "4.8320114",
+							"lat": "45.7578137"
+						}
+					}
+				]
+			},
+			"embedded_type": "stop_area"
+		},
+		{
+			"id": "stop_area:SNCF:87698340",
+			"name": "Lyon-Saint-Paul - La Feuillée (Lyon)",
+			"quality": 60,
+			"stop_area": {
+				"id": "stop_area:SNCF:87698340",
+				"name": "Lyon-Saint-Paul - La Feuillée",
+				"codes": [
+					{
+						"type": "source",
+						"value": "87698340"
+					},
+					{
+						"type": "uic",
+						"value": "87698340"
+					}
+				],
+				"timezone": "Europe\/Paris",
+				"label": "Lyon-Saint-Paul - La Feuillée (Lyon)",
+				"coord": {
+					"lon": "4.827477",
+					"lat": "45.765943"
+				},
+				"links": [],
+				"administrative_regions": [
+					{
+						"id": "admin:fr:69123",
+						"name": "Lyon",
+						"level": 8,
+						"zip_code": "",
+						"label": "Lyon",
+						"insee": "69123",
+						"coord": {
+							"lon": "4.8320114",
+							"lat": "45.7578137"
+						}
+					}
+				]
+			},
+			"embedded_type": "stop_area"
+		},
+		{
+			"id": "stop_area:SNCF:87697045",
+			"name": "Lyon-Vaise - Gare Routière (Lyon)",
+			"quality": 60,
+			"stop_area": {
+				"id": "stop_area:SNCF:87697045",
+				"name": "Lyon-Vaise - Gare Routière",
+				"codes": [
+					{
+						"type": "source",
+						"value": "87697045"
+					},
+					{
+						"type": "uic",
+						"value": "87697045"
+					}
+				],
+				"timezone": "Europe\/Paris",
+				"label": "Lyon-Vaise - Gare Routière (Lyon)",
+				"coord": {
+					"lon": "4.803685",
+					"lat": "45.779611"
+				},
+				"links": [],
+				"administrative_regions": [
+					{
+						"id": "admin:fr:69123",
+						"name": "Lyon",
+						"level": 8,
+						"zip_code": "",
+						"label": "Lyon",
+						"insee": "69123",
+						"coord": {
+							"lon": "4.8320114",
+							"lat": "45.7578137"
+						}
+					}
+				]
+			},
+			"embedded_type": "stop_area"
+		}
+	],
+	"context": {
+		"current_datetime": "20230521T165118",
+		"timezone": "Europe\/Paris"
+	},
+	"links": [
+		{
+			"href": "https:\/\/api.sncf.com\/v1\/coverage\/sncf\/stop_areas\/{stop_area.id}",
+			"templated": true,
+			"rel": "stop_areas",
+			"type": "stop_area"
+		}
+	]
+}
