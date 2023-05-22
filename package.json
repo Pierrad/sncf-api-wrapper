@@ -1,6 +1,6 @@
 {
   "name": "sncf-api-wrapper",
-  "version": "0.0.4",
+  "version": "0.0.7",
   "description": "Fully typed wrapper for the SNCF API",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -32,8 +32,10 @@
     "default": "./dist/index.cjs",
     "require": "./dist/index.cjs",
     "import": "./dist/index.js",
-    "node": "./dist/index.cjs"
+    "node": "./dist/index.cjs",
+    "types": "./dist/index.d.ts"
   },
+  "types": "./dist/index.d.ts",
   "type": "module",
   "devDependencies": {
     "@types/jest": "^29.5.1",
