@@ -100,7 +100,7 @@ function disruptions(disruptionIds: string[] | null, disruptions: FullJourney['d
     return {
       id: disruption.id,
       severity: disruption.severity,
-      messages: disruption.messages.map((message) => message.text),
+      messages: disruption?.messages?.map((message) => message.text),
     }
   }).filter((disruption) => disruption !== null).map((disruption) => disruption as SimplifiedDisruption)
   if (formatedDisruptions.length === 0) return null
