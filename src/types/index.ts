@@ -3,12 +3,14 @@ export type SimplifiedJourney = {
   arrivalTime: Date
   duration: string
   nbTransfers: number
+  status: string
   sections: {
     baseDepartureTime?: Date
     baseArrivalTime?: Date
     departureTime: Date
     arrivalTime: Date
     duration: string
+    delay: string
     from: string
     to: string
     displayInformations: {

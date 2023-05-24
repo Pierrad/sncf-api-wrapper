@@ -1,6 +1,6 @@
 {
   "name": "sncf-api-wrapper",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "Fully typed wrapper for the SNCF API",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

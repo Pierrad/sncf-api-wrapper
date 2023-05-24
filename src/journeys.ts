@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import { FullJourney, Journey, SimplifiedDisruption, SimplifiedJourney } from "./types";
-import { isoDateTimeToDate, secondsToHMS } from "./utils/datetime";
+import { differenceInSecs, isoDateTimeToDate, secondsToHMS } from "./utils/datetime";
 import { formatParams } from "./utils/url";
 
 export type JourneysParams = {
@@ -65,12 +65,21 @@ function simplifyJourneys(fullJourney: FullJourney): SimplifiedJourney[] {
       if (index === 0) return null
       if (index === journey.sections.length - 1) return null
       if (section.type === 'waiting') return null
+
+      const departureDate = isoDateTimeToDate(section.departure_date_time)
+      const arrivalDate = isoDateTimeToDate(section.arrival_date_time)
+      const baseDepartureDate = section.base_departure_date_time ? isoDateTimeToDate(section.base_departure_date_time) : null
+      const baseArrivalDate = section.base_arrival_date_time ? isoDateTimeToDate(section.base_arrival_date_time) : null
+
+      const delay = baseArrivalDate && baseDepartureDate ? differenceInSecs(arrivalDate, baseArrivalDate) : null
+
       return {
-        ...(section.base_departure_date_time && { baseDepartureTime: isoDateTimeToDate(section.base_departure_date_time) }),
-        ...(section.base_arrival_date_time && { baseArrivalTime: isoDateTimeToDate(section.base_arrival_date_time) }),
-        departureTime: isoDateTimeToDate(section.departure_date_time),
-        arrivalTime: isoDateTimeToDate(section.arrival_date_time),
+        ...(section.base_departure_date_time && { baseDepartureTime: baseDepartureDate }),
+        ...(section.base_arrival_date_time && { baseArrivalTime: baseArrivalDate }),
+        departureTime: departureDate,
+        arrivalTime: arrivalDate,
         duration: secondsToHMS(section.duration),
+        delay: delay ? secondsToHMS(delay) : null,
         from: section.from?.name,
         to: section.to?.name,
         displayInformations: {

@@ -14,3 +14,7 @@ export function isoDateTimeToDate(iso_date: string): Date {
   const second = iso_date.slice(13, 15);
   return new Date(`${year}-${month}-${day} ${hour}:${minute}:${second}`);
 }
+
+export function differenceInSecs(date1: Date, date2: Date): number {
+  return Math.abs(date1.getTime() - date2.getTime()) / 1000;
+}
